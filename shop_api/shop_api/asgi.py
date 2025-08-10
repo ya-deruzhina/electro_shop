@@ -4,13 +4,18 @@ ASGI config for shop_api project.
 It exposes the ASGI callable as a module-level variable named ``application``.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
+https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
 """
 
 import os
+import dotenv
+from pathlib import Path
 
-from django.core.asgi import get_asgi_application
+from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shop_api.settings')
+path_to_env = Path(__file__).parents[1].joinpath(".env")
+dotenv.load_dotenv(dotenv_path=path_to_env)
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.production')
 
 application = get_asgi_application()

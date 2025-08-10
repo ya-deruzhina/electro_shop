@@ -4,13 +4,17 @@ WSGI config for shop_api project.
 It exposes the WSGI callable as a module-level variable named ``application``.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/
+https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 """
 
 import os
+import dotenv
+from pathlib import Path
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shop_api.settings')
+path_to_env = Path(__file__).parents[1].joinpath(".env")
+dotenv.load_dotenv(dotenv_path=path_to_env)
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.production')
 application = get_wsgi_application()
