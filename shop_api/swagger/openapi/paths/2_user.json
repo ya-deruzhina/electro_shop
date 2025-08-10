@@ -1,0 +1,41 @@
+{
+    "/api/v1/users/current_user/": {
+        "get": {
+            "description": "Allows user get own information",
+            "tags": [
+                "User"
+            ],
+            "responses": {
+                "200": {
+                    "description": "Current user info",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User" 
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Returned after sending invalid set of credentials",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "errors": {
+                                        "type": "object",
+                                        "example": {
+                                            "non_field_errors": [
+                                                "invalid_credentials"
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

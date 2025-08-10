@@ -1,0 +1,42 @@
+{
+    "/api/v1/product/delete/{product_id}/": {
+        "delete": {
+            "description": "Delete product",
+            "tags": [
+                "Product"
+            ],
+            "parameters": [
+                {
+                  "name": "product_id",
+                  "in": "path",
+                  "description": "Id of the product",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+            "responses": {
+                "200": {
+                    "$ref": "#/components/responses/DeleteProduct"
+                },
+                "401": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Authentication credentials were not provided."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

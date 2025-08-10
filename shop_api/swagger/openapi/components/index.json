@@ -1,0 +1,563 @@
+{
+  "responses": {    
+    "UnauthorizedResponse": {
+      "description": "Returned after making request with invalid credentials",
+      "content": {
+        "application/json": {
+          "schema": {
+            "example": {
+              "errors": {
+                "detail": [
+                  "Authentication credentials were not provided"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "SuccessfulSignInResponse": {
+      "description": "Successful sign in",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "description": "Successful authentication response body",
+            "properties": {
+              "user": {
+                "$ref": "#components/schemas/User"
+              },
+              "token": {
+                "$ref": "#components/schemas/Token"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Shops":{
+      "description": "Page of All Shops",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "description": "Page of All Shops",
+            "properties": {
+              "count": {
+                "type":"integer",
+                "example":"2"},
+              "next":{
+                "type":"string",
+                "example":"null"},
+              "previous": {
+                "type":"string",
+                "example":"null"},
+              "results": {
+                "type": "array",
+                "items": {"$ref": "#components/schemas/QuerySetsShops"}
+              }         
+            }
+          }
+        }
+      }
+    },
+    "DeleteShop":{
+      "description": "Page of Deleted Shop",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "description": "Page of Deleted Shop",
+            "properties": {
+              "message": {
+                "type":"string",
+                "example":"The object was successfully deleted."},
+              "data": {"$ref": "#components/schemas/Shop"}
+            }
+          }
+        }
+      }
+    },
+    "DeleteProduct":{
+      "description": "Page of Deleted Product",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "description": "Page of Deleted Product",
+            "properties": {
+              "message": {
+                "type":"string",
+                "example":"The object was successfully deleted."},
+              "data": {"$ref": "#components/schemas/Product"}
+            }
+          }
+        }
+      }
+    }                             
+  },
+
+  "requestBodies": {
+    "AuthRequestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "identity": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              }
+            }
+          },
+          "examples": {
+            "test@user.com": {
+              "summary": "An example of a user",
+              "value": {
+                "identity": "admin",
+                "password": "admin"
+              }
+            }
+          }
+        }
+      }
+    },
+    "CreateShop": {
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Test"
+              },
+              "email": {
+                "type": "string",
+                "example": "email@email.ru"
+              },
+              "country": {
+                "type": "string",
+                "example": "Belarus"
+              },
+              "city": {
+                "type": "string",
+                "example": "Minsk"
+              },
+              "street": {
+                "type": "string",
+                "example": "Test"
+              },
+              "house_number": {
+                "type": "string",
+                "example": "1a"
+              },
+              "type_shop": {
+                "type": "string",
+                "example":"Individual entrepreneur"
+              },
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "example": 1
+                }
+              },
+              "category_supplier": {
+                "type": "integer",
+                "example": "1"
+              },
+              "debt_to_supplier": {
+                "type": "number",
+                "format": "float",
+                "example": 12.96
+              }
+
+            }
+          }
+        }
+      }
+    },
+    "UpdateShop": {
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Test"
+              },
+              "email": {
+                "type": "string",
+                "example": "email@email.ru"
+              },
+              "country": {
+                "type": "string",
+                "example": "Belarus"
+              },
+              "city": {
+                "type": "string",
+                "example": "Minsk"
+              },
+              "street": {
+                "type": "string",
+                "example": "Test"
+              },
+              "house_number": {
+                "type": "string",
+                "example": "1a"
+              },
+              "type_shop": {
+                "type": "string",
+                "example":"Individual entrepreneur"
+              },
+              "products_add": {
+              "type": "integer",
+              "items": 1
+            },
+              "products_remove": {
+              "type": "integer",
+              "items": 1
+            },
+              "category_supplier": {
+                "type": "integer",
+                "example": "1"
+              },
+              "debt_to_supplier": {
+                "type": "number",
+                "format": "float",
+                "example": 12.96
+              }
+            }
+          }
+        }
+      }
+    },
+    "CreateUpdateProduct": {
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "New"
+              },
+              "model": {
+                "type": "string",
+                "example": "News"
+              },
+              "launch_date": {
+                "type": "string",
+                "example": "2025-05-31T13:15:20Z"
+              }
+            }
+          }
+        }
+      }
+    },
+
+
+    "CreateUser": {
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string",
+                "example": "new_user"
+              },
+              "password": {
+                "type": "string",
+                "example": "password"
+              },
+              "email": {
+                "type": "string",
+                "example": "email@email.ru"
+              },
+              "shop_employee": {
+                "type": "integer",
+                "example": 1
+              },
+              "first_name": {
+                "type": "string",
+                "example": "Name"
+              },
+              "last_name": {
+                "type": "string",
+                "example": "Familia"
+              },
+              "is_active": {
+                "type": "string",
+                "example": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "schemas": {
+    "Token": {
+      "description": "Token model",
+      "type": "object",
+      "required": [
+        "token"
+      ],
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "Bearer <token>"
+        }
+      }
+    },
+
+    "User": {
+      "description": "User model",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "123"
+        },
+        "username": {
+          "type": "string",
+          "example": "user"
+        },
+        "email": {
+          "type": "string",
+          "example": "user@user.ru"
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Name"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Last Name"
+        },
+        "shop_emloyee": {
+          "type": "string",
+          "example": "Shop Name"
+        }
+      }
+    },
+
+    "QuerySetsProducts": {
+      "anyOf":[
+        {
+          "type": "array",
+          "$ref": "#components/schemas/Product"
+          },
+        {
+          "type": "array",
+          "$ref": "#components/schemas/Product"
+        }
+      ]
+    },
+
+    "Product": {
+      "description": "Products model",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "21"
+        },
+        "name": {
+          "type": "string",
+          "example": "New"
+        },
+        "model": {
+          "type": "string",
+          "example": "New"
+        },
+        "launch_date": {
+          "type": "string",
+          "example": "2025-05-31T13:15:20Z"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2025-05-31T13:15:21.950808Z"
+        }        
+      }
+    },
+    
+    "QuerySetsShops": {
+      "anyOf":[
+        {
+          "type": "array",
+          "$ref": "#components/schemas/Shop"
+          },
+        {
+          "type": "array",
+          "$ref": "#components/schemas/Shop"
+        }
+      ]
+    },
+
+    "Shop": {
+      "description": "Shop model",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "21"
+        },
+        "name": {
+          "type": "string",
+          "example": "New"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@email.ru"
+        },
+        "country": {
+          "type": "string",
+          "example": "Belarus"
+        },
+        "city": {
+          "type": "string",
+          "example": "Minsk"
+        },
+        "street": {
+          "type": "string",
+          "example": "New"
+        },
+        "house_number": {
+          "type": "string",
+          "example": "1a"
+        },
+        "products": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Product"
+        },
+        "created_at": { "type": "string", "format": "date-time" }
+        },
+        "type_shop": {
+          "type": "string",
+          "example":"Individual entrepreneur"
+        },
+        "category_supplier": {
+          "$ref": "#/components/schemas/Category"
+        },
+        "debt_to_supplier": {
+          "type": "number",
+          "format": "float",
+          "example": 12.96
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2025-05-31T12:09:05.923984Z"
+        }        
+      }
+    },
+    
+    "ShopCreate": {
+      "description": "Shop Model After Creating",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "21"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "example": 1
+          },
+          "example": [1, 2, 3]
+        },
+        "name": {
+          "type": "string",
+          "example": "New"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@email.ru"
+        },
+        "country": {
+          "type": "string",
+          "example": "Belarus"
+        },
+        "city": {
+          "type": "string",
+          "example": "Minsk"
+        },
+        "street": {
+          "type": "string",
+          "example": "New"
+        },
+        "house_number": {
+          "type": "string",
+          "example": "1a"
+        },
+        "type_shop": {
+          "type": "string",
+          "example":"Individual entrepreneur"
+        },
+        "debt_to_supplier": {
+          "type": "number",
+          "format": "float",
+          "example": 12.96
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2025-05-31T12:09:05.923984Z"
+        },
+        "category_supplier": {
+          "type": "integer",
+          "example": 1
+        }
+        
+                
+      }
+    },
+
+    "Category": {
+      "description": "Category model",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "21"
+        },
+        "name_category": {
+          "type": "string",
+          "example": "New"
+        },
+        "level_category": {
+          "type": "integer",
+          "example": "1"
+        }        
+      }
+    }
+  },
+  "securitySchemes": {
+    "BearerScheme": {
+      "type": "http",
+      "description": "Enter your JWT token",
+      "scheme": "bearer",
+      "bearerFormat": "Bearer"
+    }
+  }
+}
