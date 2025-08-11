@@ -1,0 +1,44 @@
+{
+    "/api/v1/message/": {
+        "post": {
+            "description": "Send Message",
+            "tags": [
+                "Message"
+            ],
+            "responses": {
+                "200": {
+                    "content": {
+                        "application/json": {
+                            "Status": "Successful - Message Sent"
+                            }
+                        }
+                    },
+                "401": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Authentication credentials were not provided."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },                
+                "404": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "Status": "Error In Getting Data"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

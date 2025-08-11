@@ -1,0 +1,72 @@
+{
+    "/api/v1/users/create/": {
+        "post": {
+            "description": "Create User",
+            "tags": [
+                "User"
+            ],
+            "requestBody": {
+                "$ref": "#/components/requestBodies/CreateUser"
+            },
+            "responses": {
+                "200": {
+                    "description": "Page of One User",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                            "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Validation errors",
+                    "content":{
+                        "application/json": {
+                            "schema":{
+                                "type": "object",
+                                "properties":{ 
+                                    "errors":{
+                                        "type": "object",
+                                        "properties": {
+                                            "username": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string",
+                                                    "example": ["A user with that username already exists."]
+                                                }
+                                            },
+                                            "email":{
+                                                "type": "array",
+                                                "items":{
+                                                    "type": "string",
+                                                    "example": ["user with this email already exists."]
+                                                }
+                                            },
+                                            "shop_employee":{
+                                                "type": "array",
+                                                "items":{
+                                                    "type": "string",
+                                                    "example": ["Invalid pk \"1\" - object does not exist."]
+                                                }
+                                            },
+                                            "example":{
+                                                "errors":{
+                                                    "username":"A user with that username already exists.",
+                                                    "email":"user with this email already exists.",
+                                                    "shop_employee": "Invalid pk \"1\" - object does not exist."
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+}

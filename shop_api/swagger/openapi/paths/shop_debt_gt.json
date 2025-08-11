@@ -1,0 +1,48 @@
+{
+    "/api/v1/shops/debt_gt/": {
+        "get": {
+            "description": "Show shops with above average debt",
+            "tags": [
+                "Shop"
+            ],
+            "responses": {
+                "200": {
+                    "$ref": "#/components/responses/Shops"
+                },
+                "401": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Authentication credentials were not provided."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Returned when User is not Admin",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "errors": {
+                                        "type": "object",
+                                        "example": 
+                                                "User Is Not Admin"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

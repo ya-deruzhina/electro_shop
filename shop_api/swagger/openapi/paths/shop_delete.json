@@ -1,0 +1,58 @@
+{
+    "/api/v1/shop/delete/{shop_id}/": {
+        "delete": {
+            "description": "Delete shop",
+            "tags": [
+                "Shop"
+            ],
+            "parameters": [
+                {
+                  "name": "shop_id",
+                  "in": "path",
+                  "description": "Id of the shop",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+            "responses": {
+                "200": {
+                    "$ref": "#/components/responses/DeleteShop"
+                },
+                "401": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Authentication credentials were not provided."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Returned Id Shop Not Found",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Not found."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

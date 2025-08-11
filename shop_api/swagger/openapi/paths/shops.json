@@ -1,0 +1,54 @@
+{
+    "/api/v1/shops/": {
+        "get": {
+            "description": "Show shops",
+            "tags": [
+                "Shop"
+            ],
+            "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "description": "Name country",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Belarus"
+            }
+          },
+          {
+            "name": "id_product",
+            "in": "query",
+            "description": "Id product",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": "1"
+            }
+          }
+        ],
+            "responses": {
+                "200": {
+                    "$ref": "#/components/responses/Shops"
+                },
+                "401": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Authentication credentials were not provided."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
