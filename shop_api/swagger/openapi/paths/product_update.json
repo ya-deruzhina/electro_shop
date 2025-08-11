@@ -1,0 +1,52 @@
+{
+    "/api/v1/product/update/{product_id}/": {
+        "patch": {
+            "description": "Update products",
+            "tags": [
+                "Product"
+            ],
+            "parameters": [
+                {
+                  "name": "product_id",
+                  "in": "path",
+                  "description": "Id of the product",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+            "requestBody": {
+                "$ref": "#/components/requestBodies/CreateUpdateProduct"
+            },
+            "responses": {
+                "200": {
+                    "description": "Page of One Product",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                            "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Authentication credentials were not provided."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

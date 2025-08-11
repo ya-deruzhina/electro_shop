@@ -1,0 +1,58 @@
+{
+    "/api/v1/shop/create/": {
+        "post": {
+            "description": "Create Shop",
+            "tags": [
+                "Shop"
+            ],
+            "requestBody": {
+                "$ref": "#/components/requestBodies/CreateShop"
+            },
+            "responses": {
+                "200": {
+                    "description": "Page of One shop",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                            "$ref": "#/components/schemas/ShopCreate"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "errors": {
+                                        "type": "object",
+                                        "example": 
+                                                "Here will be information about the error when serializing data"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Authentication credentials were not provided."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

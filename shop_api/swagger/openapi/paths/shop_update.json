@@ -1,0 +1,84 @@
+{
+    "/api/v1/shop/update/{shop_id}/": {
+        "patch": {
+            "description": "Update shop",
+            "tags": [
+                "Shop"
+            ],
+            "parameters": [
+                {
+                  "name": "shop_id",
+                  "in": "path",
+                  "description": "Id of the shop",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+            "requestBody": {
+                "$ref": "#/components/requestBodies/UpdateShop"
+            },
+            "responses": {
+                "200": {
+                    "description": "Page of One shop",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                            "$ref": "#/components/schemas/Shop"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Returned When Product Is Not Exist",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "STOP product not exist ||| STOP product not in shop ||| STOP debt_to_supplier unchangeable ||| Invalid pk \"1111\" - object does not exist."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Authentication credentials were not provided."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Returned Id Shop Not Found",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Not found."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

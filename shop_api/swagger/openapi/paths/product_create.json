@@ -1,0 +1,42 @@
+{
+    "/api/v1/product/create/": {
+        "post": {
+            "description": "Create product",
+            "tags": [
+                "Product"
+            ],
+            "requestBody": {
+                "$ref": "#/components/requestBodies/CreateUpdateProduct"
+            },
+            "responses": {
+                "200": {
+                    "description": "Page of One Product",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                            "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Returned without Authentication",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "detail": {
+                                        "type": "object",
+                                        "example": 
+                                                "Authentication credentials were not provided."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
