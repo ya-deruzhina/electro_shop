@@ -17,7 +17,7 @@ class ShopsUpdateSerializer(serializers.Serializer):
         queryset=CategoryModel.objects.all(),
         required=False
     )
-    debt_to_supplier = serializers.DecimalField(max_digits=50, decimal_places=2)
+    debt_to_supplier = serializers.DecimalField(max_digits=50, decimal_places=2, required=False)
     created_at = serializers.DateTimeField(read_only = True)
 
     def update(self, instance, validated_data):

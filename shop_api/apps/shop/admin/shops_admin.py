@@ -9,9 +9,9 @@ from apps.shop.admin.shops_action import remove_dept
 
 @admin.register(ShopsModel)
 class ShopsAdmin (admin.ModelAdmin):
-    list_display = ["id", "name","category_link","debt_to_supplier","created_at"]
+    list_display = ["id", "name","category_link","type_shop","debt_to_supplier","created_at"]
 
-    readonly_fields = ['id']
+    readonly_fields = ['id', 'created_at']
     list_filter = ('city',)
     actions = [remove_dept] 
 
@@ -21,3 +21,7 @@ class ShopsAdmin (admin.ModelAdmin):
             return format_html('<a href="{}">{}</a>', url, obj.category_supplier.name_category)
         return "-"
     category_link.short_description = "Category Supplier"
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.order_by('category_supplier__level_category', 'type_shop')

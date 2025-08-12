@@ -10,7 +10,7 @@ from apps.shop.serializers import ShopsSerializer, ShopsUpdateSerializer
 
 class UpdateShopsView(generics.UpdateAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = ShopsSerializer
+    serializer_class = ShopsUpdateSerializer
     queryset = ShopsModel.objects.all()
 
     def update(self, request, *args, **kwargs):

@@ -1,0 +1,100 @@
+version: '3.10'
+
+services:
+    postgres:
+        container_name: PostgreSQL
+        image: postgres
+        environment:
+            - POSTGRES_PASSWORD=123456789
+            - POSTGRES_USER=postgres
+        volumes:
+            - postgres:/code/postgres
+        
+        build: ./postgreSQL
+        
+        ports:
+            - 5432:5432
+        networks:
+              - djangonetwork
+        restart: unless-stopped
+
+
+    web:
+        container_name: Django
+        build:  ./shop_api
+        restart: always
+        volumes:
+            - postgres:/code/postgres
+        command: bash -c "pipenv run python manage.py migrate && pipenv run python manage.py runserver 0.0.0.0:8000"
+        ports:
+            - 8000:8000
+        depends_on:
+            - postgres
+            - redis
+        networks:
+              - djangonetwork
+    
+    redis:
+        container_name: Redis
+        restart: always
+        ports:
+            - 6379:6379
+        image: redis
+        networks:
+              - djangonetwork
+
+    celery:
+        container_name: Celery
+        build: ./shop_api
+        command: bash -c "pipenv run celery -A shop_api worker --loglevel=info"
+        volumes:
+            - ./shop_api:/code
+        depends_on:
+            - redis
+            - web
+        networks:
+            - djangonetwork
+        restart: always
+
+    celery-beat:
+        container_name: CeleryBeat
+        build: ./shop_api
+        command: bash -c "pipenv run python manage.py register_periodic_tasks && pipenv run celery -A shop_api beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+        volumes:
+            - ./shop_api:/code
+        depends_on:
+            - redis
+            - web
+        networks:
+            - djangonetwork
+        restart: always
+
+    mailcatcher:
+        image: schickling/mailcatcher
+        container_name: mailcatcher
+        ports:
+            - 1080:1080  # Web UI
+            - 1025:1025  # SMTP
+        networks:
+            - djangonetwork
+        restart: always
+
+    frontend:
+        build: ./frontend
+        container_name: ReactApp
+        ports:
+            - 3000:3000
+        volumes:
+            - ./frontend:/app
+        stdin_open: true
+        tty: true
+        networks:
+            - djangonetwork
+        
+
+networks:
+      djangonetwork:
+          driver: bridge
+
+volumes:
+    postgres:
